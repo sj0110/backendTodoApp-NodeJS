@@ -45,9 +45,9 @@ export const logoutUser = (req, res) => {
     res.status(201).cookie('token', '', {
         expires: new Date(Date.now()), // expire cookie
         httpOnly: true,
-        sameSite: process.env.NODE_ENV !== 'production'? 'none': 'lax',
-            secure: process.env.NODE_ENV !== 'production'? true : false,
-    }).json({ message:'User logged out successfully', user: req.user });
+        sameSite: process.env.NODE_ENV !== 'production' ? 'none' : 'lax',
+        secure: process.env.NODE_ENV !== 'production' ? true : false,
+    }).json({ message: 'User logged out successfully', user: req.user });
 };
 export const registerUser = async (req, res, next) => {
     const { username, email, password } = req.body;
@@ -62,7 +62,7 @@ export const registerUser = async (req, res, next) => {
 
         // Create a new user with hashed password
         const user = await User.create({ username: username, email: email, password: hashedPassword });
-        
+
         createCookie(res, user, `User registered successfully with user id ${user.id}`);
 
     } catch (error) {
